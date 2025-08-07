@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "backend/**" # backend/ 디렉토리 하위에 변경이 있을 때만 실행
-      - ".github/workflows/backend-ci.yml" # 워크플로우 파일 자체가 변경될 때도 실행
+      - ".github/workflows/ci-backend.yml" # 워크플로우 파일 자체가 변경될 때도 실행
 
 env:
   # Docker Hub에 푸시할 이미지 이름 (레포지토리/이미지명)
@@ -35,14 +35,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
        # docker/metadata-action을 사용하여 이미지 메타데이터(태그 등)를 동적으로 생성합니다.
-      - name: Extract Docker metadata
+      - name: Generate image tag
         id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.DOCKER_IMAGE }}
-          # 태그 형식: YYYYMMDD-shortSHA (예: 20250807-a1b2c3d)
-          tags: |
-            type=raw,value={{date 'YYYYMMDD'}}-{{sha-short}}
+        run: |
+          TAG=$(date +%Y%m%d)-$(git rev-parse --short HEAD)
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
 
       - name: Display Docker metadata
         run: echo "${{ steps.meta.outputs.tags }}"
@@ -52,7 +49,7 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: ${{ steps.meta.outputs.tags }} # metadata-action이 생성한 태그를 사용합니다.
+          tags: ${{env.DOCKER_IMAGE}}:${{ steps.meta.outputs.tag }}
           labels: ${{ steps.meta.outputs.labels }} # metadata-action이 생성한 라벨을 사용합니다.
 
   update-manifest:
