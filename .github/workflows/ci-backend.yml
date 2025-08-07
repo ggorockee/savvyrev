@@ -7,6 +7,7 @@ on:
     paths:
       - "backend/**" # backend/ 디렉토리 하위에 변경이 있을 때만 실행
       - ".github/workflows/ci-backend.yml" # 워크플로우 파일 자체가 변경될 때도 실행
+      - ".github/workflows/scripts/update_values.py" # 워크플로우 파일 자체가 변경될 때도 실행
 
 env:
   # Docker Hub에 푸시할 이미지 이름 (레포지토리/이미지명)
@@ -34,7 +35,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-       # docker/metadata-action을 사용하여 이미지 메타데이터(태그 등)를 동적으로 생성합니다.
+      # docker/metadata-action을 사용하여 이미지 메타데이터(태그 등)를 동적으로 생성합니다.
       - name: Generate image tag
         id: meta
         run: |
@@ -64,12 +65,12 @@ jobs:
         with:
           repository: ${{ env.INFRA_REPO }}
           token: ${{ secrets.INFRA_GITHUB_TOKEN }} # PAT 시크릿을 직접 사용합니다.
-          path: 'infra'
+          path: "infra"
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: "3.10"
 
       - name: Install ruamel.yaml
         run: pip install ruamel.yaml
@@ -88,7 +89,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add ${{ env.VALUES_FILE_PATH }}
-          
+
           if ! git diff --staged --quiet; then
             git commit -m "Update image for savvyrev to ${{ needs.build-and-push-image.outputs.image_tag }}"
             git push
