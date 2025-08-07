@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       # docker/metadata-action의 결과물(버전)을 다음 Job에서 사용할 수 있도록 출력합니다.
-      image_tag: ${{ steps.meta.outputs.version }}
+      image_tag: ${{ steps.meta.outputs.tag }}
 
     steps:
       - name: Checkout repository
