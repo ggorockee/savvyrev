@@ -41,9 +41,6 @@ jobs:
           TAG=$(date +%Y%m%d)-$(git rev-parse --short HEAD)
           echo "tag=${TAG}" >> $GITHUB_OUTPUT
 
-      - name: Display Docker metadata
-        run: echo "${{ steps.meta.outputs.tags }}"
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
