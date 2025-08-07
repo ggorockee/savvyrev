@@ -34,7 +34,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # docker/metadata-action을 사용하여 이미지 메타데이터(태그 등)를 동적으로 생성합니다.
+       # docker/metadata-action을 사용하여 이미지 메타데이터(태그 등)를 동적으로 생성합니다.
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
@@ -43,6 +43,9 @@ jobs:
           # 태그 형식: YYYYMMDD-shortSHA (예: 20250807-a1b2c3d)
           tags: |
             type=raw,value={{date 'YYYYMMDD'}}-{{sha-short}}
+
+      - name: Display Docker metadata
+        run: echo "${{ steps.meta.outputs.tags }}"
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
