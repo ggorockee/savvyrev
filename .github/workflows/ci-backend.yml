@@ -65,6 +65,7 @@ jobs:
         with:
           repository: ${{ env.INFRA_REPO }}
           token: ${{ secrets.INFRA_GITHUB_TOKEN }} # PAT 시크릿을 직접 사용합니다.
+          ref: dev
           path: "infra"
 
       - name: Setup Python
