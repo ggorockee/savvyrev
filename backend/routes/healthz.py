@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, Response
 
-router = APIRouter(prefix="/v1", tags=['Health Check'])
+router = APIRouter(tags=['Health Check'])
 
 @router.get("/healthz/ready")
 async def healthz():
