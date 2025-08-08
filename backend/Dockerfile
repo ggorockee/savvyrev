@@ -36,4 +36,4 @@ EXPOSE 8000
 # --bind 0.0.0.0:8000 : 컨테이너의 모든 네트워크 인터페이스 8000번 포트에서 요청을 받음.
 # --workers 2 : 2개의 워커 프로세스로 요청을 병렬 처리합니다. (서버 CPU 코어 수에 따라 2~4배로 조절)
 # config.wsgi: Django 프로젝트의 WSGI 애플리케이션 경로. 
-CMD ["uvicorn", "app.main:app", "--reload", "--port", "8000"]
+CMD ["gunicorn", "-w", "2", "-k", "uvicorn.workers.UvicornWorker", "-b", "0.0.0.0:8000", "main:app"]

@@ -1,1 +1,13 @@
-fastapi[standard]
+fastapi[standard]==0.116.1
+gunicorn==23.0.0
+
+# --- Database (PostgreSQL 예시) ---
+SQLAlchemy==2.0.42
+psycopg2-binary==2.9.10
+
+# --- Authentication & Security ---
+passlib[bcrypt]==1.7.4
+python-jose[cryptography]==3.5.0
+
+# --- Configuration ---
+pydantic-settings==2.10.1
