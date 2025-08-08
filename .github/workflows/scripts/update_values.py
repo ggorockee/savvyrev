@@ -4,7 +4,7 @@ from ruamel.yaml import YAML
 
 def update_image_tag(file_path, new_tag):
     """
-    Updates the image tag in a YAML file while preserving comments and structure.
+    # Updates the image tag in a YAML file while preserving comments and structure.
 
     Args:
         file_path (str): The path to the values.yaml file.
