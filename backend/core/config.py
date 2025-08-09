@@ -48,6 +48,10 @@ class Settings(BaseSettings):
     )
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
 
+    TIMEZONE: str = "Asia/Seoul"
+
+    ADMIN_KEY: str = os.getenv("ADMIN_KEY", "default_admin_key")
+
     class Config:
         case_sensitive = True
 
