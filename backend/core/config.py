@@ -41,16 +41,29 @@ class Settings(BaseSettings):
         f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
     )
 
-    # JWT 설정
+    # FASTAPI 설정
     SECRET_KEY: str = os.getenv(
         "SECRET_KEY",
         "a_very_secret_key_that_should_be_changed",
     )
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
+    # ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
 
     TIMEZONE: str = "Asia/Seoul"
 
     ADMIN_KEY: str = os.getenv("ADMIN_KEY", "default_admin_key")
+
+    # JWT
+    JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "JWT_SECRET_KEY")
+    JWT_REFRESH_SECRET_KEY: str = os.getenv(
+        "JWT_REFRESH_SECRET_KEY", "JWT_REFRESH_SECRET_KEY"
+    )
+
+    REFRESH_TOKEN_EXPIRE_MINUTES: str = os.getenv(
+        "REFRESH_TOKEN_EXPIRE_MINUTES", "10080"
+    )
+    ACCESS_TOKEN_EXPIRE_MINUTES: str = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30")
+
+    ALGORITHM: str = os.getenv("ALGORITHM", "HS256")
 
     class Config:
         case_sensitive = True
