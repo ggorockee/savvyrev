@@ -4,3 +4,4 @@ backend/.vscode
 backend/.idea
 backend/.env
 backend/docker
+backend/database/
