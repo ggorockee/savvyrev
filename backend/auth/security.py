@@ -29,7 +29,7 @@ def get_current_user(
 
     token = creds.credentials
     try:
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, settings.JWT_SECRET_KEY, algorithms=[ALGORITHM])
         email: str = payload.get("sub")
         if email is None:
             raise credentials_exception
@@ -37,7 +37,7 @@ def get_current_user(
     except JWTError:
         raise credentials_exception
 
-    user = user_service.get_by_email(db, email=token_data.email)
+    user = user_service.get_user_by_email(db, email=token_data.email)
     if user is None:
         raise credentials_exception
     return user

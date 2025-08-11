@@ -42,10 +42,10 @@ class Settings(BaseSettings):
     )
 
     # FASTAPI 설정
-    SECRET_KEY: str = os.getenv(
-        "SECRET_KEY",
-        "a_very_secret_key_that_should_be_changed",
-    )
+    # SECRET_KEY: str = os.getenv(
+    #     "SECRET_KEY",
+    #     "a_very_secret_key_that_should_be_changed",
+    # )
     # ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
 
     TIMEZONE: str = "Asia/Seoul"

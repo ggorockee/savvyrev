@@ -43,3 +43,7 @@ class PasswordChange(BaseModel):
 
     current_password: str
     new_password: str
+
+class UserDelete(BaseModel):
+    """유저 삭제"""
+    user_id: int

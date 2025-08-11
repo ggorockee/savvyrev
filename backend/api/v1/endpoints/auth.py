@@ -76,7 +76,7 @@ async def refresh_access_token(
                 headers={"WWW-Authenticate": "Bearer"},
             )
 
-        user = user_service.get_by_email(db, email=email)
+        user = user_service.get_user_by_email(db, email=email)
         if user is None:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,

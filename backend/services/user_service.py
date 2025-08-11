@@ -11,14 +11,17 @@ class UserService:
     사용자 관련 비즈니스 로직을 처리하는 서비스 클래스.
     """
 
-    def get_by_email(self, db: Session, *, email: str) -> User | None:
-        return user_repo.get_by_email(db, email=email)
+    def get_user_by_id(self, *, db: Session, id: int, **kwargs) -> User | None:
+        return user_repo.get_user_by_id(db, id, **kwargs)
+
+    def get_user_by_email(self, db: Session, *, email: str) -> User | None:
+        return user_repo.get_user_by_email(db, email=email)
 
     def create(self, db: Session, *, obj_in: UserCreate) -> User:
         return user_repo.create(db, obj_in=obj_in)
 
     def authenticate(self, db: Session, *, email: str, password: str) -> User | None:
-        user = self.get_by_email(db, email=email)
+        user = self.get_user_by_email(db, email=email)
         if not user:
             return None
         if not verify_password(password, user.hashed_password):

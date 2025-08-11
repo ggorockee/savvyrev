@@ -6,7 +6,11 @@ from core.config import settings
 
 
 class UserRepository:
-    def get_by_email(self, db: Session, *, email: str) -> User | None:
+    def get_user_by_id(self, *, db: Session, id: int, **kwargs) -> User | None:
+        """id로 사용자를 조회"""
+        return db.query(User).filter(User.id == id).first()
+
+    def get_user_by_email(self, db: Session, *, email: str) -> User | None:
         """email로 사용자를 조회"""
         return db.query(User).filter(User.email == email).first()
 
